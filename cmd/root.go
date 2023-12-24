@@ -36,6 +36,7 @@ func Execute() {
 
 func init() {
 	rootCmd.PersistentFlags().StringP("rpc-url", "r", "https://eth.llamarpc.com", "Set rpc url")
+	rootCmd.PersistentFlags().BoolP("raw", "", false, "Return jsonrpc raw content")
 
 	if err := viper.BindPFlags(rootCmd.PersistentFlags()); err != nil {
 		panic(err)
