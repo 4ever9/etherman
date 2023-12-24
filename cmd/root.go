@@ -35,6 +35,11 @@ func Execute() {
 }
 
 func init() {
+	rootCmd.PersistentFlags().StringP("rpc-url", "r", "https://eth.llamarpc.com", "Set rpc url")
+
+	if err := viper.BindPFlags(rootCmd.PersistentFlags()); err != nil {
+		panic(err)
+	}
 	viper.AutomaticEnv()
 	viper.SetEnvPrefix("ETHERMAN")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_", "-", "_"))

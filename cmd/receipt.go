@@ -6,14 +6,15 @@ package cmd
 import (
 	"fmt"
 	"github.com/imroc/req/v3"
-	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"github.com/spf13/cobra"
 )
 
-// txCmd represents the tx command
-var txCmd = &cobra.Command{
-	Use:   "tx",
-	Short: "Get the transaction by hash",
+// receiptCmd represents the receipt command
+var receiptCmd = &cobra.Command{
+	Use:   "receipt",
+	Short: "Get the transaction receipt by hash",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 1 {
 			return fmt.Errorf("lack of tx hash")
@@ -23,7 +24,7 @@ var txCmd = &cobra.Command{
 		client := req.C()
 		resp, err := client.R().
 			SetBody(map[string]any{
-				"method":  "eth_getTransactionByHash",
+				"method":  "eth_getTransactionReceipt",
 				"params":  []string{args[0]},
 				"id":      1,
 				"jsonrpc": "2.0",
@@ -40,5 +41,5 @@ var txCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(txCmd)
+	rootCmd.AddCommand(receiptCmd)
 }
